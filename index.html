@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Eloquent Javascript Exercises</title>
+
+	<script type="">
+		/*
+		1. Looping a triangle
+		Write a loop that makes seven calls to console.log to output the following triangle:
+
+		#
+		##
+		###
+		####
+		#####
+		######
+		#######
+		*/
+		for (let line = "#"; line.length < 8; line += "#"){
+  				console.log(line);
+  		}
+//-----------------------------------------------------------------------------------------------------------------------------
+  		/*
+  		2. FizzBuzz
+  		Write a program that uses console.log to print all the numbers from 1 to 100, with two exceptions. For numbers divisible by 3, print "Fizz" instead of the number, and for numbers divisible by 5 (and not 3), print "Buzz" instead.
+
+		When you have that working, modify your program to print "FizzBuzz" for numbers that are divisible by both 3 and 5 (and still print "Fizz" or "Buzz" for numbers divisible by only one of those).
+
+		(This is actually an interview question that has been claimed to weed out a significant percentage of programmer candidates. So if you solved it, your labor market value just went up.)
+  		*/
+
+  		for(let i = 1; i < 100; i++){
+  			if(i % 3 == 0 && i % 5 == 0){
+  				console.log("fizzBUZZ");
+  			} else if(i % 3 == 0){
+  				console.log("fizz");
+  			}else if(i % 5 == 0){
+  				console.log("Buzz");
+  			}else{
+  				console.log(i);
+  			}
+  		}
+//-----------------------------------------------------------------------------------------------------------------------------
+       /*
+       3. Chessboard
+			Write a program that creates a string that represents an 8×8 grid, using newline characters to separate lines. At each position of the grid there is either a space or a "#" character. The characters should form a chessboard.
+
+			Passing this string to console.log should show something like this:
+
+			 # # # #
+			# # # # 
+			 # # # #
+			# # # # 
+			 # # # #
+			# # # # 	
+			 # # # #
+			# # # #
+       */
+
+       let size = 8;
+       let board = "";
+
+       for(let i = 0; i < size; i++){ //outer loop makes new lines in the board
+       		for(let j = 0; j < size; j++){ // inner loop makes a space or a # character
+       			if((i + j) % 2 == 0){
+       				board += " ";
+       			}else{
+       				board += "#";
+       			}
+       		}
+       		board += "\n"; 
+       }
+       console.log(board);
+//----------------------------------------------------------------------------------------------------------------------------- 
+  /*
+    Write a JavaScript program to display the current day and time in the following format.  Go to the editor
+    Sample Output : Today is : Tuesday. 
+    Current time is : 10 PM : 30 : 38
+  */
+       let day = new Date();
+       let dayOfWk = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+
+        let today = dayOfWk[day.getDay()];
+        console.log("Today is: " + today);
+
+        let time = new Date();
+        let twentyFourHour = time.getHours();
+        let hour = time.getHours();
+        let min = time.getMinutes();
+        let sec = time.getSeconds();
+        let mid = ""
+        //hour = (hour >= 12) ? hour - 12 : hour;
+        if(min < 10){
+          min = "0" + min;
+        }
+        if(hour >= 12){
+           hour -= 12; 
+        }
+
+        if(hour === 0){
+           hour = 12;  
+        }
+
+        twentyFourHour >= 12 ? mid = "PM" : mid = "AM";
+
+        console.log("The time is " + hour +":"+min+ " " + mid);
+       
+       
+
+
+//https://codepen.io/jaystephens3/pen/qoKgn     
+          function clock() {
+            var now = new Date();
+            var TwentyFourHour = now.getHours();
+            var hour = now.getHours();
+            var min = now.getMinutes();
+            var sec = now.getSeconds();
+            var mid = 'pm';
+          
+            if (min < 10) {
+              min = "0" + min;
+            }
+            if (sec < 10){
+              sec = "0" + sec;
+            }
+            if (hour > 12) {
+              hour -= 12;
+            }    
+            if(hour === 0){ 
+              hour = 12;
+            }
+            if(TwentyFourHour < 12) {
+               mid = 'am';
+            } 
+
+            document.querySelector('div').innerHTML = hour+':'+min+':'+sec + ' ' + ' ' + mid;
+            setTimeout(clock, 1000);
+          }
+
+window.onload = function() {
+        clock(); 
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+  
+  /*
+  The previous chapter introduced the standard function Math.min that returns its smallest argument. We can build something like that now. Write a function min that takes two arguments and returns their minimum.
+
+      console.log(min(0, 10));
+      // → 0
+      console.log(min(0, -10));
+      // → -10
+  */ 
+
+    function findSmallest(a,b){
+      let smallest = Math.min(a,b);
+      console.log(smallest);
+    }
+    findSmallest(97,247);   
+//-------------------------------------------------------------------------------------------------------------------------------
+
+    /*
+      We’ve seen that % (the remainder operator) can be used to test whether a number is even or odd by using % 2 to see whether it’s divisible by two. Here’s another way to define whether a positive whole number is even or odd:
+
+      Zero is even.
+
+      One is odd.
+
+      For any other number N, its evenness is the same as N - 2.
+
+      Define a recursive function isEven corresponding to this description. The function should accept a single parameter (a positive, whole number) and return a Boolean.
+
+      Test it on 50 and 75. See how it behaves on -1. Why? Can you think of a way to fix this?
+    */
+
+    function isEven(number){
+      if(number === 0){
+          return true;
+      }else {
+        return (-number % 2 === 0) ? true : false;
+      }
+      return isEven(number - 2);
+    }
+    console.log(isEven(50));
+    console.log(isEven(75));
+    console.log(isEven(-1));
+//------------------------------------------------------------------------------------------------------------------------------
+
+/*
+  Bean counting
+    You can get the Nth character, or letter, from a string by writing "string"[N]. The returned value will be a string containing only one character (for example, "b"). The first character has position 0, which causes the last one to be found at position string.length - 1. In other words, a two-character string has length 2, and its characters have positions 0 and 1.
+
+    Write a function countBs that takes a string as its only argument and returns a number that indicates how many uppercase “B” characters there are in the string.
+
+    Next, write a function called countChar that behaves like countBs, except it takes a second argument that indicates the character that is to be counted (rather than counting only uppercase “B” characters). Rewrite countBs to make use of this new function.
+*/
+/*
+  function countBs(string){
+    let counter = 0;
+    for(let i=0; i < string.length; i++){
+      if(string[i] === "B"){
+        counter++;
+    }
+   }
+    return counter;
+  }
+  console.log(countBs("Bubble"));
+*/
+  function countChar(string, a){
+    let counter = 0;
+    for(let i=0; i < string.length; i++){
+      if(string[i] === a){
+        counter++;
+    }
+   }
+    return counter;
+  }
+  console.log(countChar("AAAAAAAAAA", "A"));
+//------------------------------------------------------------------------------------------------------------------------------
+//function to sort an array of numbers. if the array is empty or null, return an empty array
+//https://www.codewars.com/kata/sort-numbers/javascript
+
+function sortArray(nums){
+  return (nums || [] ).sort(function(a,b){
+    return a - b
+  });
+}
+console.log(sortArray([3,67,1,29,32,4]));
+//------------------------------------------------------------------------------------------------------------------------------
+      /*
+      https://www.codewars.com/kata/beginner-series-number-3-sum-of-numbers/train/javascript
+      Given two integers a and b, which can be positive or negative, find the sum of all the numbers between including them too and return it. If the two numbers are equal return a or b.
+
+      Note: a and b are not ordered!
+   */
+
+ /* FLAG */
+function GetSum( a,b ){
+   //Good luck!
+   let sum = 0;
+   
+    if(a === b){
+     return a;
+   }else if(a < b){
+      for(a; a <= b; a++){
+        sum += a;
+      }
+   }else if(b < a){
+      for(b; b <= a; b++){
+        sum += b;
+      }
+   }
+   return sum;
+   
+}
+console.log(GetSum(5,10));
+
+//------------------------------------------------------------------------------------------------------------------------------
+
+          /*
+          Return the number (count) of vowels in the given string.
+          We will consider a, e, i, o, and u as vowels for this Kata.
+          The input string will only consist of lower case letters and/or spaces.
+          */
+
+//Aaron's answer
+function getCount(str) {
+  var vowelsCount = 0;
+  // enter your majic here 
+  for(i=0; i < str.length; i++){
+      if(str[i] === "a" || str[i] === "e" || str[i] === "i" || str[i] === "o" || str[i] === "u"){
+        vowelsCount++;
+      }
+  }
+  
+  return vowelsCount;
+}
+console.log(getCount("aaron"));
+
+//alternate solution
+function getCount(str) {
+  var vowelsCount = 0;
+  var vowels = ["a","e","i","o","u"];
+  for(var i = 0;i < str.length;i++){
+    for(var j=0;j<vowels.length;j++){
+      if(str[i] === vowels[j]){
+        vowelsCount++;
+      }
+    }
+  }
+  
+  return vowelsCount;
+}
+
+//alternate solution
+function getCount(str) {
+ return str.split('').filter(c => "aeiouAEIOU".includes(c)).length;
+}
+console.log(getCount("Banana"));
+//------------------------------------------------------------------------------------------------------------------------------
+    /*
+      Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+      It should remove all values from list a, which are present in list b.
+      array_diff([1,2],[1]) == [2]
+
+      If a value is present in b, all of its occurrences must be removed from the other:
+
+      array_diff([1,2,2,2,3],[2]) == [1,3]
+    */
+/*
+    function array_diff(a,b){
+      let result = [];
+
+      for(i = 0; i < a.length; i++){
+        if(b.indexOf(a[i]) === -1){
+          result.push(a[i]);
+        }
+      }
+      return result;
+    }
+    console.log(array_diff([2,5,1,3,12,5,7],[3,6,12,5,4,5]));
+*/
+    function array_diff(a,b){
+      return a.filter(function(x){
+        return b.indexOf(x) == -1;
+      });
+    }
+    console.log(array_diff([2,5,1,3,5,],[3,7,12,8,4,9]));
+
+//------------------------------------------------------------------------------------------------------------------------------
+
+      /*
+      Count the number of Duplicates
+      Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
+      */
+
+//Aaron's answer passed most cases on codewars.com
+function duplicateCount(text){
+  //...
+  let counter = 0;
+  let tmpArray = [];
+  text = text.toLowerCase();
+  for(i = 0; i < text.length; i ++) {
+    if(tmpArray.indexOf(text[i]) === -1 ){
+      tmpArray.push(text[i]);
+    }else{
+      counter++;
+    }
+  }
+  return counter;
+ }
+ console.log(duplicateCount("indivisibility"));
+
+ /* FLAG */
+ //someone else's answer - passed all cases on codewars.com
+ function dupl(str) {
+  str = str.toLowerCase();
+ var dups = [];
+ for (var i=0; i<str.length; i++) {
+   if (str.indexOf(str[i])!== i) {
+     if (!dups.includes(str[i])) {
+       dups.push(str[i]);
+       
+     }
+   } 
+ }
+ return dups.length;
+}
+console.log(duplicateCount("indivisibility"));
+//------------------------------------------------------------------------------------------------------------------------------
+  /*
+  Write a function, persistence, that takes in a positive parameter num and returns its multiplicative persistence, which is the number of times you must multiply the digits in num until you reach a single digit.
+
+   persistence(39) === 3 // because 3*9 = 27, 2*7 = 14, 1*4=4
+                       // and 4 has only one digit
+  */
+
+   /* FLAG */
+  let count = 0;
+ function persistence(num){
+    if(num.toString().length === 1){
+      return count;
+    }
+
+    count++;
+    let mult = 1;
+    let splitStr = num.toString().split("");
+    for(i = 0; i < splitStr.length; i ++){
+      mult *= parseFloat(splitStr[i]);
+    }
+    return persistence(parseFloat(mult));
+ }
+console.log(persistence(39));
+//------------------------------------------------------------------------------------------------------------------------------
+    /*
+      https://www.codewars.com/kata/filter-out-the-vowels/javascript
+
+      Write a function, vowelFilter, that takes an array of strings as an argument and returns a filtered array containing the same elements but with the 'vowels' removed.
+
+      The vowels are any strings in the following array, which is pre-populated in your solution:
+    */
+
+    function vowelFilter (letters) {
+      //const vowels = ["a", "e", "i", "o", "u"];
+      // return an array containing all of the strings in the input array except those that match strings in vowels
+      let vowels = /^[aeiou]/i;
+
+      let filtered = letters.filter(letter => !vowels.test(letter));
+      return filtered;
+    }
+    console.log(vowelFilter(["i", "s", "e", "a", "w", "e", "m"]));
+ 
+    //Aaron's solution
+    function vowelFilter (letters) {
+      const vowels = ["a", "e", "i", "o", "u"];
+      // return an array containing all of the strings in the input array except those that match strings in vowels
+
+      let filtered = letters.filter(function(letter){
+          return vowels.indexOf(letter) === -1;
+      });
+      return filtered;
+    }
+    console.log(vowelFilter(["i", "d", "a", "t", "u", "Z"]));
+
+    //someone else's solution
+    function vowelFilter (letters) {
+      var vowels = ["a", "e", "i", "o", "u"];
+      return letters.filter( letter => !vowels.includes(letter))  
+    };
+
+//------------------------------------------------------------------------------------------------------------------------------
+      /*
+      https://www.codewars.com/kata/string-reduction/train/javascript
+
+      In this Kata, we are going to see how a Hash (or Map or dict) can be used to keep track of characters in a string.
+
+      Consider two strings "aabcdefg" and "fbd". How many characters do we have to remove from the first string to get the second string? Although not the only way to solve this, we could create a Hash of counts for each string and see which character counts are different. That should get us close to the answer. I will leave the rest to you.
+
+      For this example, solve("aabcdefg","fbd") = 5. Also, solve("xyz","yxxz") = 0, because we cannot get second string from the first since the second string is longer.
+      */
+
+       /* FLAG */
+      function solve(a, b) {
+      let count = 0;
+      for(i = 0; i < a.length; i++){
+        for(j = 0; j < b.length; j++){
+          if(a[i] !== b[i]){
+            count++;
+          }
+        }
+      }
+
+    };
+//------------------------------------------------------------------------------------------------------------------------------
+      /*
+      https://www.codewars.com/kata/delete-occurrences-of-an-element-if-it-occurs-more-than-n-times/javascript
+      Enough is enough!
+      Alice and Bob were on a holiday. Both of them took many pictures of the places they've been, and now they want to show Charlie their entire collection. However, Charlie doesn't like this sessions, since the motive usually repeats. He isn't fond of seeing the Eiffel tower 40 times. He tells them that he will only sit during the session if they show the same motive at most N times. Luckily, Alice and Bob are able to encode the motive as a number. Can you help them to remove numbers such that their list contains each number only up to N times, without changing the order?
+
+      Task
+      Given a list lst and a number N, create a new list that contains each number of lst at most N times without reordering. For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this would lead to 1 and 2 being in the result 3 times, and then take 3, which leads to [1,2,3,1,2,3].
+      */
+
+       /* FLAG */
+      function deleteNth(arr, x){
+        let totals = {};
+        return arr.filter(function(n){
+          return ((totals[n] = ++totals[n] || 0) < x) // the properties in my object = the property value after increment or 0 as long as the value is < x
+        })
+      }
+      console.log(deleteNth([20,37,21,39,21,21], 2));
+
+
+      function deleteNth(arr,x) {
+      var cache = {};
+      return arr.filter(function(n) {
+        cache[n] = (cache[n]||0) + 1;
+        return cache[n] <= x;
+      });
+    }
+//------------------------------------------------------------------------------------------------------------------------------
+
+    /*
+      https://www.codewars.com/kata/friend-or-foe/train/javascript
+      Make a program that filters a list of strings and returns a list with only your friends name in it.
+
+      If a name has exactly 4 letters in it, you can be sure that it has to be a friend of yours! Otherwise, you can be sure he's not...
+
+      Ex: Input = ["Ryan", "Kieran", "Jason", "Yous"], Output = ["Ryan", "Yous"]
+
+      Note: keep the original order of the names in the output.
+    */
+
+    function friend(friends){
+      //your code here
+      return friends.filter(friend => friend.length === 4);
+    }
+    console.log(friend(["Ryan", "Kieran", "Mark"]));
+//------------------------------------------------------------------------------------------------------------------------------
+     /*
+     https://www.codewars.com/kata/money-money-money/train/javascript
+
+     Mr. Scrooge has a sum of money 'P' that wants to invest, and he wants to know how many years 'Y' this sum has to be kept in the bank in order for this sum of money to amount to 'D'.
+
+      The sum is kept for 'Y' years in the bank where interest 'I' is paid yearly, and the new sum is re-invested yearly after paying tax 'T'
+
+      Note that the principal is not taxed but only the year's accrued interest
+
+      Example:
+        Let P be the Principal = 1000.00      
+        Let I be the Interest Rate = 0.05      
+        Let T be the Tax Rate = 0.18      
+        Let D be the Desired Sum = 1100.00
+
+
+      After 1st Year -->
+        P = 1041.00
+      After 2nd Year -->
+        P = 1083.86
+      After 3rd Year -->
+        P = 1128.30
+
+        Thus Mr. Scrooge has to wait for 3 years for the initial pricipal to ammount to the desired sum.
+
+        Your task is to complete the method provided and return the number of years 'Y' as a whole in order for Mr. Scrooge to get the desired sum.
+
+        Assumptions : Assume that Desired Principal 'D' is always greater than the initial principal, however it is best to take into consideration that if the Desired Principal 'D' is equal to Principal 'P' this should return 0 Years.
+     */
+      /* FLAG */
+    function calcYears(principal, interest, tax, desired){
+      let years = 0;
+      while(principal < desired){
+        i = principal * interest;
+        i -= i * tax;
+        principal += i;
+        years++;
+      }
+      return years;
+    }
+console.log(calcYears(1000,0.01625,0.18,1200)); // 14 years
+
+
+function calculateYears(principal, interest, tax, desired) {
+    // your code
+    var years = 0;
+    while(principal < desired){
+      principal += (principal * interest) * (1 - tax);
+      years++;
+    }
+    return years;
+}
+//------------------------------------------------------------------------------------------------------------------------------
+  /*
+    https://www.codewars.com/kata/list-filtering/train/javascript
+
+    In this kata you will create a function that takes a list of non-negative integers and strings and returns a new list with the strings filtered out.
+  */
+
+  function filterList(list){
+    return list.filter(function(el){
+      return typeof(el) === "number";
+    });
+  }
+  console.log(filterList([1,2,'a','b']));
+//------------------------------------------------------------------------------------------------------------------------------
+    /*
+      https://www.codewars.com/kata/youre-a-square/train/javascript
+      Task
+      Given an integral number, determine if it's a square number:
+
+      In mathematics, a square number or perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself.
+
+      The tests will always use some integral number, so don't worry about that in dynamic typed languages.
+    */
+
+    /* FLAG */
+    function isSquare(n){
+      return Math.sqrt(n) % 1 === 0; // why is it '1' in math.sqrt(n) % 1 === 0.
+    }
+    console.log(isSquare(25));
+//------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------
+
+  </script>
+</head>
+<body>
+    <div>
+       
+    </div>
+
+    <p id="demo"></p>
+</body>
+</html>
